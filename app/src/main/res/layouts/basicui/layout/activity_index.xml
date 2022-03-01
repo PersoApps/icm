@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".IndexActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <Button
+            android:id="@+id/index_basicui"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="basicUi"
+            android:text="Basic UI" />
+
+        <Button
+            android:id="@+id/index_permissions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="permissions"
+            android:text="permissions" />
+
+        <Button
+            android:id="@+id/index_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="location"
+            android:text="location" />
+
+        <Button
+            android:id="@+id/index_maps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="maps"
+            android:text="maps" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

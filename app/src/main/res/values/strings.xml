@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">TESTAPP</string>
+    <string name="greeting">Hello World!</string>
+    <array name="education">
+        <item>Primaria</item>
+        <item>Secundaria</item>
+        <item>Universitaria</item>
+        <item>Postgrado</item>
+        <item>Maestria</item>
+        <item>Doctorado</item>
+    </array>
+</resources>
