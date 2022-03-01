@@ -23,8 +23,8 @@ public class PermissionHomeActivity extends AppCompatActivity {
         contacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(PermissionHomeActivity.this, SimplePermissionActivity.class));
-                startActivity(new Intent(PermissionHomeActivity.this, ContactsActivity.class));
+                startActivity(new Intent(PermissionHomeActivity.this, NewWaySimplePermissionActivity.class));
+                //startActivity(new Intent(PermissionHomeActivity.this, ContactsActivity.class));
             }
         });
 
