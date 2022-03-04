@@ -27,6 +27,7 @@ android {
                     [
                             'src/main/res/layouts/basicui',
                             'src/main/res/layouts/permissions',
+                            'src/main/res/layouts/location',
                             'src/main/res/layouts',
                             'src/main/res'
                     ]
