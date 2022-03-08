@@ -13,6 +13,7 @@ import com.example.testapp.location.SimpleLocationActivity;
 import com.example.testapp.permissions.PermissionHomeActivity;
 
 public class IndexActivity extends AppCompatActivity {
+    public static final String TAG = "ICM_APP";
     Button basicui, permissions, location, maps;
 
     @Override
