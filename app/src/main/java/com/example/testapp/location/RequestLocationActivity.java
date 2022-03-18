@@ -139,11 +139,6 @@ public class RequestLocationActivity extends AppCompatActivity {
         };
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        startLocationUpdates();
-//    }
 
     @Override
     protected void onStop() {
