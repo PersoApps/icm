@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.example.testapp.IndexActivity;
 import com.example.testapp.R;
+import com.example.testapp.layouts.MainActivity;
+import com.example.testapp.model.MyLocation;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -33,9 +35,26 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-public class RequestLocationActivity extends AppCompatActivity {
+import org.json.JSONArray;
 
-    TextView latitude, longitude, elevation;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.Writer;
+import java.util.Date;
+
+public class RequestLocationActivity extends AppCompatActivity {
+    public static double RADIUS_OF_EARTH_KM = 6371;
+    public static double ELDORADO_LAT = 4.701254326122318;
+    public static double ELDORADO_LONG = -74.14600084094732;
+
+    JSONArray locations = new JSONArray();
+
+    //Last Known location
+    Location lastKnownLocation;
+
+
+    TextView latitude, longitude, elevation, distanceToElDorado;
     FusedLocationProviderClient fusedLocationProvider;
 
     LocationRequest locationRequest;
@@ -81,6 +100,7 @@ public class RequestLocationActivity extends AppCompatActivity {
         latitude = findViewById(R.id.latitudeRL);
         longitude = findViewById(R.id.longitudeRL);
         elevation = findViewById(R.id.elevationRL);
+        distanceToElDorado = findViewById(R.id.distanceToElDorado);
         fusedLocationProvider = LocationServices.getFusedLocationProviderClient(this);
         locationRequest = createLocationRequest();
         locationCallback = createLocationCallback();
@@ -111,6 +131,7 @@ public class RequestLocationActivity extends AppCompatActivity {
                     getLocationSettings.launch(isr);
                 }else {
                     elevation.setText("No GPS available");
+
                 }
             }
         });
@@ -130,19 +151,22 @@ public class RequestLocationActivity extends AppCompatActivity {
             @Override
             public void onLocationResult(@NonNull LocationResult locationResult) {
                 super.onLocationResult(locationResult);
-                Location location = locationResult.getLastLocation();
-                Log.i(IndexActivity.TAG, "Location received: "+location);
-                latitude.setText(String.valueOf(location.getLatitude()));
-                longitude.setText(String.valueOf(location.getLongitude()));
-                elevation.setText(String.valueOf(location.getAltitude()));
+                lastKnownLocation = locationResult.getLastLocation();
+                Log.i(IndexActivity.TAG, "Location received: "+lastKnownLocation);
+                latitude.setText(String.valueOf(lastKnownLocation.getLatitude()));
+                longitude.setText(String.valueOf(lastKnownLocation.getLongitude()));
+                elevation.setText(String.valueOf(lastKnownLocation.getAltitude()));
+                double distance = distance(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), ELDORADO_LAT, ELDORADO_LONG);
+                distanceToElDorado.setText(String.valueOf(distance));
+                writeJSONObject();
             }
         };
     }
 
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         stopLocationUpdates();
     }
 
@@ -157,4 +181,36 @@ public class RequestLocationActivity extends AppCompatActivity {
     private void stopLocationUpdates(){
         fusedLocationProvider.removeLocationUpdates(locationCallback);
     }
-}
+
+    public double distance(double lat1, double long1, double lat2, double long2) {
+        double latDistance = Math.toRadians(lat1 - lat2);
+        double lngDistance = Math.toRadians(long1 - long2);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double result = RADIUS_OF_EARTH_KM * c;
+        return Math.round(result*100.0)/100.0;
+    }
+
+    private void writeJSONObject(){
+        MyLocation myLocation = new MyLocation();
+        myLocation.setDate(new Date(System.currentTimeMillis()));
+        myLocation.setLatitude(lastKnownLocation.getLatitude());
+        myLocation.setLongitude(lastKnownLocation.getLongitude());
+        locations.put(myLocation.toJSON());
+        Writer output = null;
+        String filename= "locations.json";
+        try {
+            File file = new File(getBaseContext().getExternalFilesDir(null), filename);
+            Log.i(MainActivity.TAG_APP, "Ubicacion de archivo: "+file);
+            output = new BufferedWriter(new FileWriter(file));
+            output.write(locations.toString());
+            output.close();
+        } catch (Exception e) {
+            //Log error
+        }
+    }
+
+
+    }

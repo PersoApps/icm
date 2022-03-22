@@ -4,7 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layouts/basicui/layout/activity_simple_loction.xml" value="0.37604166666666666" />
-        <entry key="app/src/main/res/layouts/location/layout/activity_request_location.xml" value="0.2" />
+        <entry key="app/src/main/res/layouts/location/layout/activity_request_location.xml" value="0.5" />
         <entry key="app/src/main/res/layouts/location/layout/activity_simple_loction.xml" value="0.22" />
         <entry key="app/src/main/res/layouts/maps/layout/activity_google_maps.xml" value="0.5" />
         <entry key="app/src/main/res/layouts/permissions/layout/activity_permission_home.xml" value="0.33" />
