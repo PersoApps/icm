@@ -15,7 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TESTAPP"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".maps.MapProviderSelectorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".maps.OSMMapsActivity"
+            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -29,7 +34,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}"/>
+            android:value="${MAPS_API_KEY}" />
 
         <activity
             android:name=".maps.GoogleMapsActivity"

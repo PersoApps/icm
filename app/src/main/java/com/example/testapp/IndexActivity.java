@@ -11,6 +11,7 @@ import com.example.testapp.layouts.MainActivity;
 import com.example.testapp.location.RequestLocationActivity;
 import com.example.testapp.location.SimpleLocationActivity;
 import com.example.testapp.maps.GoogleMapsActivity;
+import com.example.testapp.maps.MapProviderSelectorActivity;
 import com.example.testapp.permissions.PermissionHomeActivity;
 
 public class IndexActivity extends AppCompatActivity {
@@ -37,6 +38,6 @@ public class IndexActivity extends AppCompatActivity {
         startActivity(new Intent(IndexActivity.this, RequestLocationActivity.class));
     }
     public void maps(View v){
-        startActivity(new Intent(IndexActivity.this, GoogleMapsActivity.class));
+        startActivity(new Intent(IndexActivity.this, MapProviderSelectorActivity.class));
     }
 }
