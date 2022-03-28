@@ -16,9 +16,12 @@
         tools:context=".maps.GoogleMapsActivity" />
 
     <EditText
+        android:id="@+id/searchGoogle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="20dp"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
         android:background="@drawable/roundcorner"
         android:textColor="@color/blanquito"
         android:textStyle="bold"/>

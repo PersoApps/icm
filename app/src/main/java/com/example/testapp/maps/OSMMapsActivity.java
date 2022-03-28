@@ -5,10 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.UiModeManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.testapp.IndexActivity;
 import com.example.testapp.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -20,19 +30,26 @@ import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.TilesOverlay;
 
+import java.io.IOException;
+import java.util.List;
+
 public class OSMMapsActivity extends AppCompatActivity {
+    TextView searchOSM;
     MapView map;
     //starting point for the map
     double latitude = 4.62;
     double longitude = -74.07;
     GeoPoint startPoint = new 	GeoPoint(latitude, longitude);
-    Marker longPressedMarker;
+    Marker longPressedMarker, searchMarker;
+    Geocoder geocoder;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_osmmaps);
+        searchOSM = findViewById(R.id.searchOSM);
+        geocoder = new Geocoder(this);
         //setContentView(R.layout.activity_open_street_maps);
         Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
@@ -41,6 +58,24 @@ public class OSMMapsActivity extends AppCompatActivity {
         map.setMultiTouchControls(true);
         map.getZoomController().activate();
         map.getOverlays().add(createEventsOverlay());
+        searchOSM.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                    if(searchOSM.getText()!=null) {
+                        String address = searchOSM.getText().toString();
+                        Log.i(IndexActivity.TAG, "Query GeoCoder: " +address );
+                        LatLng position = geoCoderSearchAdress(address);
+                        if(position!=null){
+                            searchMarker = createMarker(new GeoPoint(position.latitude, position.longitude), address,  null, 0 );//R.drawable.ic_baseline_directions_bike_24
+                            map.getOverlays().add(searchMarker);
+                            map.getController().setCenter(new GeoPoint(position.latitude, position.longitude));
+                        }
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -80,8 +115,8 @@ public class OSMMapsActivity extends AppCompatActivity {
     private void longPressOnMap(GeoPoint p){
         if(longPressedMarker!=null)
             map.getOverlays().remove(longPressedMarker);
-        String description = "("+p.getLatitude()+", "+p.getLongitude()+")";
-        longPressedMarker = createMarker(p, "New Location", description,0 );//R.drawable.ic_baseline_directions_bike_24
+        String description = this.geoCoderSearchLocation(new LatLng(p.getLatitude(), p.getLongitude()));
+        longPressedMarker = createMarker(p, "New Location", description,R.drawable.ic_baseline_directions_bike_24);
         map.getOverlays().add(longPressedMarker);
     }
 
@@ -102,5 +137,38 @@ public class OSMMapsActivity extends AppCompatActivity {
             marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         }
         return marker;
+    }
+
+    private LatLng geoCoderSearchAdress(String address){
+        LatLng position = null;
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(address, 2);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address addressResult = addresses.get(0);
+                position = new LatLng(addressResult.getLatitude(), addressResult.getLongitude());
+            } else {
+                Toast.makeText(OSMMapsActivity.this, "Address not found", Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        };
+        return position;
+    }
+
+    private  String geoCoderSearchLocation(LatLng latlng){
+        String addr = null;
+        Log.i(IndexActivity.TAG, "Search location name for coordinates: "+latlng.latitude+" "+latlng.longitude);
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latlng.latitude, latlng.longitude, 2);
+            Log.i(IndexActivity.TAG, addresses.toString());
+            if (addresses != null && !addresses.isEmpty()) {
+                addr = addresses.get(0).getAddressLine(0);
+            } else {
+                Toast.makeText(OSMMapsActivity.this, "Location not found", Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        };
+        return addr;
     }
 }

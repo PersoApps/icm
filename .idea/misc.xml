@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/layouts/location/layout/activity_simple_loction.xml" value="0.22" />
         <entry key="app/src/main/res/layouts/maps/drawable/roundcorner.xml" value="0.185" />
         <entry key="app/src/main/res/layouts/maps/layout/activity_google_maps.xml" value="0.33" />
+        <entry key="app/src/main/res/layouts/maps/layout/activity_osmmaps.xml" value="0.2722222222222222" />
         <entry key="app/src/main/res/layouts/permissions/layout/activity_permission_home.xml" value="0.33" />
       </map>
     </option>
