@@ -1,5 +1,12 @@
 package com.example.testapp.location;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -8,13 +15,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
 
 import com.example.testapp.IndexActivity;
 import com.example.testapp.R;
@@ -106,7 +106,7 @@ public class RequestLocationActivity extends AppCompatActivity {
         locationCallback = createLocationCallback();
 
         getLocationPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION);
-        checkLocationSettings();
+
 
     }
 
@@ -163,6 +163,11 @@ public class RequestLocationActivity extends AppCompatActivity {
         };
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkLocationSettings();
+    }
 
     @Override
     protected void onPause() {
@@ -213,4 +218,4 @@ public class RequestLocationActivity extends AppCompatActivity {
     }
 
 
-    }
+}

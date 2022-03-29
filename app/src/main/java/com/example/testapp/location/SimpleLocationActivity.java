@@ -46,7 +46,6 @@ public class SimpleLocationActivity extends AppCompatActivity {
         elevation = findViewById(R.id.elevation);
         fusedLocationProvider = LocationServices.getFusedLocationProviderClient(this);
         getLocationPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION);
-
         requestLocationOnce();
 
     }
@@ -62,6 +61,5 @@ public class SimpleLocationActivity extends AppCompatActivity {
                 }
             });
         }
-
     }
 }

@@ -1,13 +1,12 @@
 package com.example.testapp.maps;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.UiModeManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -15,12 +14,16 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.testapp.IndexActivity;
 import com.example.testapp.R;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.osmdroid.api.IMapController;
+import org.osmdroid.bonuspack.routing.OSRMRoadManager;
+import org.osmdroid.bonuspack.routing.Road;
+import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -28,9 +31,11 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OSMMapsActivity extends AppCompatActivity {
@@ -42,6 +47,9 @@ public class OSMMapsActivity extends AppCompatActivity {
     GeoPoint startPoint = new 	GeoPoint(latitude, longitude);
     Marker longPressedMarker, searchMarker;
     Geocoder geocoder;
+    RoadManager roadManager;
+
+
 
 
     @Override
@@ -54,6 +62,9 @@ public class OSMMapsActivity extends AppCompatActivity {
         Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         map =findViewById(R.id.osmMap);
+        roadManager = new OSRMRoadManager(this, "USER_AGENT");
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setMultiTouchControls(true);
         map.getZoomController().activate();
@@ -67,9 +78,13 @@ public class OSMMapsActivity extends AppCompatActivity {
                         Log.i(IndexActivity.TAG, "Query GeoCoder: " +address );
                         LatLng position = geoCoderSearchAdress(address);
                         if(position!=null){
-                            searchMarker = createMarker(new GeoPoint(position.latitude, position.longitude), address,  null, 0 );//R.drawable.ic_baseline_directions_bike_24
+                            GeoPoint found = new GeoPoint(position.latitude, position.longitude);
+                            searchMarker = createMarker(found, address,  null, 0 );//R.drawable.ic_baseline_directions_bike_24
                             map.getOverlays().add(searchMarker);
                             map.getController().setCenter(new GeoPoint(position.latitude, position.longitude));
+                            IMapController mapController = map.getController();
+                            mapController.setZoom(18.0);
+                            drawRoute(found, startPoint);
                         }
                     }
                 }
@@ -85,6 +100,7 @@ public class OSMMapsActivity extends AppCompatActivity {
         IMapController mapController = map.getController();
         mapController.setZoom(18.0);
         mapController.setCenter(this.startPoint);
+
         UiModeManager uiManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
         if(uiManager.getNightMode() == UiModeManager.MODE_NIGHT_YES )
             map.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
@@ -118,6 +134,7 @@ public class OSMMapsActivity extends AppCompatActivity {
         String description = this.geoCoderSearchLocation(new LatLng(p.getLatitude(), p.getLongitude()));
         longPressedMarker = createMarker(p, "New Location", description,R.drawable.ic_baseline_directions_bike_24);
         map.getOverlays().add(longPressedMarker);
+        drawRoute(p, startPoint);
     }
 
     private Marker createMarker(GeoPoint p, String title, String description, int iconId){
@@ -170,5 +187,17 @@ public class OSMMapsActivity extends AppCompatActivity {
             e.printStackTrace();
         };
         return addr;
+    }
+
+    private void drawRoute(GeoPoint start, GeoPoint finish){
+        map.getOverlays().clear();
+        ArrayList<GeoPoint> routePoints = new ArrayList<>();
+        routePoints.add(start);
+        routePoints.add(finish);
+        Road road = roadManager.getRoad(routePoints);
+        Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
+        if(map!=null){
+            map.getOverlays().add(roadOverlay);
+        }
     }
 }
