@@ -144,7 +144,7 @@ public class OSMMapsActivity extends AppCompatActivity {
             map.getOverlays().remove(longPressedMarker);
         drawRoute(p, startPoint);
         String description = this.geoCoderSearchLocation(new LatLng(p.getLatitude(), p.getLongitude()));
-        longPressedMarker = createMarker(p, "New Location", description,R.drawable.ic_baseline_directions_bike_24);
+        longPressedMarker = createMarker(p, "New Location", description,R.drawable.ic_baseline_location_on_24);
         map.getOverlays().add(longPressedMarker);
     }
 
@@ -164,6 +164,25 @@ public class OSMMapsActivity extends AppCompatActivity {
             marker.setPosition(p);
             marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         }
+        marker.setDraggable(true);
+        marker.setOnMarkerDragListener(new Marker.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDrag(Marker marker) {
+
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+                GeoPoint newLocation = new GeoPoint(marker.getPosition().getLatitude(), marker.getPosition().getLongitude());
+                //Log.i(IndexActivity.TAG, "Marker Drag started: "+marker.getPosition().getLatitude()+" "+marker.getPosition().getLatitude());
+                drawRoute(newLocation, startPoint);
+            }
+
+            @Override
+            public void onMarkerDragStart(Marker marker) {
+
+            }
+        });
         return marker;
     }
 

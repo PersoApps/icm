@@ -113,6 +113,24 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                 //mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             }
         });
+
+        mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDrag(@NonNull Marker marker) {
+
+            }
+
+            @Override
+            public void onMarkerDragEnd(@NonNull Marker marker) {
+                marker.setTitle(geoCoderSearchLocation(marker.getPosition()));
+                marker.hideInfoWindow();
+            }
+
+            @Override
+            public void onMarkerDragStart(@NonNull Marker marker) {
+
+            }
+        });
     }
 
 
@@ -196,9 +214,12 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         if(mMap!=null){
             if(searchMarker!=null) searchMarker.remove();
             searchMarker = mMap.addMarker(new MarkerOptions().position(position));
+            searchMarker.setDraggable(true);
+
             if (title != null) searchMarker.setTitle(title);
             if (desc != null) searchMarker.setSnippet(desc);
             if (icon > 0) searchMarker.setIcon(bitmapDescriptorFromVector(this, icon));
+
         }
     }
 }
