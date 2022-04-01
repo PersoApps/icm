@@ -232,7 +232,7 @@ public class OSMMapsActivity extends AppCompatActivity {
                 map.getOverlays().remove(roadOverlay);
             }
             roadOverlay = RoadManager.buildRoadOverlay(road);
-            roadOverlay.getOutlinePaint().setColor(Color.RED);
+            roadOverlay.getOutlinePaint().setColor(getResources().getColor(R.color.routeColor, null));
             roadOverlay.getOutlinePaint().setStrokeWidth(10);
             map.getOverlays().add(roadOverlay);
         }
