@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blanquito">#F6F3F3</color>
     <color name="azulito">#2196F3</color>
+    <color name="routeColor">#2196F3</color>
 </resources>
