@@ -16,6 +16,14 @@
         android:theme="@style/Theme.TESTAPP"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".firebase.LoginActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".maps.MapProviderSelectorActivity"
             android:exported="false" />
         <activity
@@ -34,7 +42,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="${GOOGLE_API_KEY}" />
 
         <activity
             android:name=".maps.GoogleMapsActivity"
@@ -74,12 +82,8 @@
             android:exported="false" />
         <activity
             android:name=".IndexActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".layouts.ListActivity"

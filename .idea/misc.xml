@@ -8,8 +8,11 @@
         <entry key="..\:/develop/apps/android/icm/app/src/main/res/layouts/maps/layout/activity_google_maps.xml" value="0.19375" />
         <entry key="..\:/develop/apps/android/icm/app/src/main/res/layouts/maps/layout/activity_map_provider_selector.xml" value="0.25" />
         <entry key="..\:/develop/apps/android/icm/app/src/main/res/layouts/maps/layout/activity_osmmaps.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_android_24.xml" value="0.1735" />
         <entry key="app/src/main/res/drawable/ic_baseline_directions_bike_24.xml" value="0.18" />
         <entry key="app/src/main/res/layouts/basicui/layout/activity_simple_loction.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layouts/basicui/menu/indexmenu.xml" value="0.2875" />
+        <entry key="app/src/main/res/layouts/firebase/layout/activity_login.xml" value="0.2074074074074074" />
         <entry key="app/src/main/res/layouts/location/layout/activity_request_location.xml" value="0.5" />
         <entry key="app/src/main/res/layouts/location/layout/activity_simple_loction.xml" value="0.22" />
         <entry key="app/src/main/res/layouts/maps/drawable/roundcorner.xml" value="0.185" />

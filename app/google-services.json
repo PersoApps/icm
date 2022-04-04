@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "873050356556",
+    "project_id": "icmpuj",
+    "storage_bucket": "icmpuj.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873050356556:android:4d32f2bfab7f18a7412de9",
+        "android_client_info": {
+          "package_name": "com.example.testapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "873050356556-8ho5tqpilniu03m2dk2ql5nmrrq909cc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "${GOOGLE_API_KEY}"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "873050356556-8ho5tqpilniu03m2dk2ql5nmrrq909cc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

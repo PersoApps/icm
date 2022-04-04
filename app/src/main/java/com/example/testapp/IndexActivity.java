@@ -1,9 +1,12 @@
 package com.example.testapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -39,5 +42,21 @@ public class IndexActivity extends AppCompatActivity {
     }
     public void maps(View v){
         startActivity(new Intent(IndexActivity.this, MapProviderSelectorActivity.class));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.indexmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int itemClicked = item.getItemId();
+        if(itemClicked == R.id.menusignout){
+            //close session
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
