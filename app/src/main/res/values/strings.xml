@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TESTAPP</string>
+    <string name="app_name">CompuMovil</string>
     <string name="greeting">Hello World!</string>
     <string name="distance">Distance to El Dorado: </string>
     <array name="education">

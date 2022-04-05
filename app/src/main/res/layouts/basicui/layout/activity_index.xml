@@ -41,5 +41,12 @@
             android:layout_height="wrap_content"
             android:onClick="maps"
             android:text="maps" />
+
+        <Button
+            android:id="@+id/index_firebase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="firebase"
+            android:text="Firebase" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

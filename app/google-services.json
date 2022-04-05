@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "873050356556",
+    "firebase_url": "https://icmpuj-default-rtdb.firebaseio.com",
     "project_id": "icmpuj",
     "storage_bucket": "icmpuj.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "873050356556-8p1tp0sa8ib3d9d87h5rb70igo90ff1i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.testapp",
+            "certificate_hash": "5c18303e5ef02d5b1ce5cfc87cfdceea8100a7e7"
+          }
+        },
         {
           "client_id": "873050356556-8ho5tqpilniu03m2dk2ql5nmrrq909cc.apps.googleusercontent.com",
           "client_type": 3

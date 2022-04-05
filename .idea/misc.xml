@@ -10,8 +10,10 @@
         <entry key="..\:/develop/apps/android/icm/app/src/main/res/layouts/maps/layout/activity_osmmaps.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_android_24.xml" value="0.1735" />
         <entry key="app/src/main/res/drawable/ic_baseline_directions_bike_24.xml" value="0.18" />
+        <entry key="app/src/main/res/layouts/basicui/layout/activity_index.xml" value="0.37864583333333335" />
         <entry key="app/src/main/res/layouts/basicui/layout/activity_simple_loction.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layouts/basicui/menu/indexmenu.xml" value="0.2875" />
+        <entry key="app/src/main/res/layouts/firebase/layout/activity_firebase_realtime_dbactivity.xml" value="0.37864583333333335" />
         <entry key="app/src/main/res/layouts/firebase/layout/activity_login.xml" value="0.2074074074074074" />
         <entry key="app/src/main/res/layouts/location/layout/activity_request_location.xml" value="0.5" />
         <entry key="app/src/main/res/layouts/location/layout/activity_simple_loction.xml" value="0.22" />
@@ -27,5 +29,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.37864583333333335" />
+      </ProjectState>
+    </option>
   </component>
 </project>
